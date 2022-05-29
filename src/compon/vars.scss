@@ -1,0 +1,18 @@
+// ====== VARIABLES =======
+$gut: 10px;
+$gut_2: 20px;
+$round_10: 10px;
+$round_5: 5px;
+$shadow: 0px 0px 10px rgba(0,0,0,0.2);
+$carrot: #f85904;
+
+.icon{
+    color: $carrot;
+    margin-right: $gut;
+    margin-left: $gut;
+    font-size: 2rem;
+    cursor: pointer;
+    &:hover{
+        color: darken($carrot,10);
+    }
+}
