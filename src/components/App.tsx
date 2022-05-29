@@ -6,7 +6,7 @@ function App() {
     return (
         <div className='container-fluid'>
             <div className='container'>
-                <h1>AXIOS</h1>
+                <h1>AXIOS SANDBOX</h1>
             </div>
         </div>
     )
