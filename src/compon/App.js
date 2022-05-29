@@ -1,42 +1,22 @@
-import React,{ useState,useEffect } from 'react';
+import React from 'react';
 import Todos from './Todos';
 import Input from './Input';
-import SearchTodo from './SearchTodo';
 import useRequest from '../hooks/useRequest'
 import './app.scss'
+import { useSelector,useDispatch } from 'react-redux'
+import { get_data } from '../Redux/reduxSlice';
+import { useJsonServer } from '../hooks/useJsonServer'
 
 function App() {
 
-    const [inputValue,setInputValue] = useState('');
-    const [searchValue,setSearchValue] = useState('');
-    const [data,setData] = useState([])
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-    // const API_URL = 'https://jsonplaceholder.typicode.com/todos?_limit=5/';
-    const URL = 'http://localhost:888/todos'
+    const { error,loading } = useJsonServer()
+    const dispatch = useDispatch()
+    const data = useSelector(state => state.redux.data)
+    const url = useSelector(state => state.redux.url)
 
-    useEffect(() => {
-        try{
-            fetch(URL)
-            .then((response) => response.json())
-            .then((results) => {
-                setData(results)        
-                setError(null)
-                setLoading(false)
-            })
-        }
-        catch(error){
-            setError(true)
-            console.error('ERROR',error.message) 
-        }
-        finally{
-            setLoading(false)
-        }
-    },[])
-    // ===== PATCH ========================
     const checkTodo = (id) => {
         let updatedTodos = data.map(todo => todo.id === id ? {...todo,checked: !todo.checked} : todo);
-        setData(updatedTodos)
+        dispatch(get_data(updatedTodos)) //==============>
         const checkedTodo = updatedTodos.filter(todo => todo.id === id)
         const options = {
             method: 'PATCH',
@@ -45,57 +25,27 @@ function App() {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         }
-        const newURL = `${URL}/${id}`
+        const newURL = `${url}/${id}`
         const raw = useRequest(newURL,options)
     }
-    // ===== DELETE ========================
+    
     const deleteTodo = (id) => {
         let updatedTodos = data.filter(todo => todo.id !== id );
-        setData(updatedTodos);
+        dispatch(get_data(updatedTodos)) //==============>
         const options = { method: 'DELETE' }
-        const newURL = `${URL}/${id}`
+        const newURL = `${url}/${id}`
         const raw = useRequest(newURL,options)
     }
-    // ===== POST =====================
-    const addNewTodo = (title) => {
-        let id = data.length ? data[data.length - 1].id + 1 : 1;
-        let newTodo = { id,checked: false,title}
-        let updatedTodos = [...data,newTodo]
-        setData(updatedTodos)
-
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(newTodo),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        }
-        const raw = useRequest(URL,options)
-    }
-    // ===== ===================
-    const onSubmit = (event) => {
-        event.preventDefault();
-        if(!inputValue) return;
-        setInputValue('');
-        addNewTodo(inputValue)
-    }
-
+    
     return (
         <div className='container'>
-            <Input
-                inputValue={inputValue}
-                setInputValue={setInputValue}
-                onSubmit={onSubmit}
-            />
-            <SearchTodo
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-            />
+            <Input/>
             <Todos 
                 data={data}
                 checkTodo={checkTodo}
                 deleteTodo={deleteTodo}
             />
+            <h1>{url}</h1>
         </div>
     )
 }

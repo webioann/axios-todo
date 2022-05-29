@@ -1,8 +1,39 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { FaPlusSquare } from 'react-icons/fa'
+import useRequest from '../hooks/useRequest'
+import { useSelector,useDispatch } from 'react-redux'
+import { get_data } from '../Redux/reduxSlice';
 import './input.scss'
 
-function Input({ inputValue,setInputValue,onSubmit }) {
+function Input() {
+
+    const dispatch = useDispatch()
+    const[value,setValue] = useState('')
+    const data = useSelector(state => state.redux.data)
+    const url = useSelector(state => state.redux.url)
+
+    const addNewTodo = (title) => {
+        let id = data.length ? data[data.length - 1].id + 1 : 1;
+        let newTodo = { id,checked: false,title}
+        let updatedTodos = [...data,newTodo]
+        dispatch(get_data(updatedTodos))
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(newTodo),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }
+        useRequest(url,options)
+    }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        if(!value) return;
+        setValue('')
+        addNewTodo(value) // == put title on data and json-server
+    }
+
     return (
         <form className='form' onSubmit={onSubmit}>
             <input
@@ -10,8 +41,8 @@ function Input({ inputValue,setInputValue,onSubmit }) {
                 id='input'
                 autoFocus
                 placeholder='new todo'
-                value={inputValue}
-                onChange={(event) => setInputValue(event.target.value)}
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
             />
             <FaPlusSquare  
                 className='icon submit'
@@ -22,4 +53,4 @@ function Input({ inputValue,setInputValue,onSubmit }) {
     )
 }
 
-export default Input
+export default Input;
