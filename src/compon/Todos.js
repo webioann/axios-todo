@@ -1,9 +1,13 @@
 import React from 'react';
 import { MdOutlineCheckBoxOutlineBlank,MdOutlineCheckBox } from 'react-icons/md'
 import { CgTrash } from 'react-icons/cg'
+import { useSelector,useDispatch } from 'react-redux'
 import './todos.scss';
 
-function Todos({ data,checkTodo,deleteTodo }) {
+function Todos({ checkTodo,deleteTodo }) {
+
+    const data = useSelector(state => state.redux.data)
+
 
     if( data.length > 0 ) {
         return (
