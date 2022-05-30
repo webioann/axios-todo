@@ -6,7 +6,7 @@ function TodoEmpty() {
     return (
         <li className='item'>
             <h3 className='todo'>
-                EMPTY TODOS
+                TODOS IS EMPTY
             </h3>
         </li>
     )

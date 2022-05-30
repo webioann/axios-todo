@@ -16,7 +16,7 @@ function App() {
         <div className='container'>
             <Input/>
             <TodosList>
-                {data ? <Todo/> : <TodoEmpty/>}
+                {data.length > 0 ? <Todo/> : <TodoEmpty/>}
             </TodosList>
         </div>
     )

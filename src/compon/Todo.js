@@ -41,17 +41,12 @@ const Todo = () => {
         {data.map(todo => (
             <li className='item' key={todo.id}>
                 {todo.checked 
-                    ? <MdOutlineCheckBox 
-                        className='icon'
-                        onClick={() => checkTodo(todo.id)}
-                        /> 
-                    : <MdOutlineCheckBoxOutlineBlank 
-                        className='icon'
-                        onClick={() => checkTodo(todo.id)}
-                        />}
-                <h1 className={!todo.checked ? 'todo' : 'todo-through'}>
+                    ? <MdOutlineCheckBox className='icon' onClick={() => checkTodo(todo.id)}/> 
+                    : <MdOutlineCheckBoxOutlineBlank className='icon'onClick={() => checkTodo(todo.id)}/>
+                }
+                <h3 className={!todo.checked ? 'todo' : 'todo-through'}>
                     {todo.title}
-                </h1>
+                </h3>
                 <CgTrash className='icon' onClick={() => deleteTodo(todo.id)}/>
             </li>
         ))}

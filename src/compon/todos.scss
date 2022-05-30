@@ -15,11 +15,11 @@
     // border: 2px solid #bbb;
     border-radius: $round_5;
     margin-top: $gut_2;
-    h1{
+    h3{
         flex: 1;
     }
     .todo-through{
-        text-decoration: underline;
+        text-decoration: line-through;
     }
     .todo{
         text-decoration: none;
