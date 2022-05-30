@@ -2,7 +2,7 @@ import React,{ useState } from 'react';
 import { FaPlusSquare } from 'react-icons/fa'
 import useRequest from '../hooks/useRequest'
 import { useSelector,useDispatch } from 'react-redux'
-import { get_data } from '../Redux/reduxSlice';
+import { get_data } from '../Redux/reducer';
 import './input.scss'
 
 function Input() {

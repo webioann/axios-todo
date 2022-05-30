@@ -3,7 +3,7 @@ import { MdOutlineCheckBoxOutlineBlank,MdOutlineCheckBox } from 'react-icons/md'
 import { CgTrash } from 'react-icons/cg'
 import { useSelector,useDispatch } from 'react-redux'
 import useRequest from '../hooks/useRequest'
-import { get_data } from '../Redux/reduxSlice'
+import { get_data } from '../Redux/reducer'
 import './todos.scss';
 
 const Todo = () => {

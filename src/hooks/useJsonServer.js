@@ -1,7 +1,7 @@
 import React,{ useState,useEffect } from 'react'
 import axios from 'axios'
 import { useSelector,useDispatch } from 'react-redux'
-import { get_data } from '../Redux/reduxSlice';
+import { get_data } from '../Redux/reducer';
 
 export const useJsonServer = () => {  //= this function gets data from local json-server(result in axios-start/server/data.json) =
     

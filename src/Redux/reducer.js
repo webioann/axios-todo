@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
-export const reduxSlice = createSlice({
+const reducer = createSlice({
     name: "redux",
     initialState: {
         url: 'http://localhost:888/todos',
@@ -14,6 +14,6 @@ export const reduxSlice = createSlice({
     },
 });
 
-export const { get_data,get_value } = reduxSlice.actions;
+export const { get_data,get_value } = reducer.actions;
 
-export default reduxSlice.reducer;
+export default reducer.reducer;
